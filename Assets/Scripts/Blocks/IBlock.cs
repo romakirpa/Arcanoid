@@ -1,4 +1,4 @@
-namespace Infrastructure
+namespace Blocks
 {
     public interface IBlock
     {

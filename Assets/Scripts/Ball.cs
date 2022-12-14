@@ -1,4 +1,4 @@
-using Infrastructure;
+using Blocks;
 using UnityEngine;
 
 public class Ball : MonoBehaviour

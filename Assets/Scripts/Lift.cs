@@ -1,9 +1,10 @@
+using Infrastructure;
 using UnityEngine;
 
 public class Lift : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 10f;
+    private float _speed = 15f;
     private Transform _transform;
     private float _maxLeftPosition;
     private float _maxRightPosition;
@@ -19,8 +20,7 @@ public class Lift : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawLine(new Vector3(_maxLeftPosition, 0f, 0f), Vector3.up);
-        var horizontalDirection = Input.GetAxis("Horizontal");
+        var horizontalDirection = Game.InputService.GetAxis().x;
         _transform.Translate(Vector3.right * (horizontalDirection * _speed * Time.deltaTime));
         var pos = _transform.position;
         pos.x = Mathf.Clamp(pos.x, _maxLeftPosition, _maxRightPosition);
