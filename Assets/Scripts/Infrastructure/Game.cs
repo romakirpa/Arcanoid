@@ -6,10 +6,12 @@ namespace Infrastructure
     public class Game
     {
         public static IInputService InputService; // todo remove static, use DI in the future.
+        public static int Health; // todo remove static, use DI.
 
         public Game()
         {
             RegisterInputService();
+            Health = 3;
         }
 
         private void RegisterInputService()
@@ -20,7 +22,7 @@ namespace Infrastructure
             }
             else
             {
-                InputService = new MobileInputService(); // implement service.
+                InputService = new MobileInputService();
             }
         }
     }
