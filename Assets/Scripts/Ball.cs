@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
         _speed = 20f;
-        _isMoving = true;
+        _isMoving = false;
         _direction = Vector3.up * _speed;
         _currentDamage = 1;
     }
