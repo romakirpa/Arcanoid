@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    void Update() //todo: move to called method
+    public void HealthChanged()
     {
         for (int i = 0; i < _getComponentsInChildren.Count; i++)
         {
