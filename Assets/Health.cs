@@ -5,9 +5,11 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     private List<GameObject> _getComponentsInChildren;
-
+        
     void Start()
     {
+        Game.MinusHealth += HealthChanged;
+        
         _getComponentsInChildren = new List<GameObject>();
         var count = transform.childCount;
         for (int i = 0; i < count; i++)
@@ -16,7 +18,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void HealthChanged()
+    private void HealthChanged()
     {
         for (int i = 0; i < _getComponentsInChildren.Count; i++)
         {

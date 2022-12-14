@@ -9,12 +9,10 @@ public class Ball : MonoBehaviour
     private Vector3 _direction;
     private bool _isMoving;
     private float _currentDamage;
-    private Health _health;
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _health = GameObject.Find("Health").GetComponent<Health>();
         _speed = 20f;
         _currentDamage = 1;
         RestartPosition();
@@ -50,8 +48,7 @@ public class Ball : MonoBehaviour
 
     public void Failed()
     {
-        Game.Health -= 1;
-        _health.HealthChanged();
+        Game.DecrementHealth();
         
         if (Game.Health <= 0)
         {
