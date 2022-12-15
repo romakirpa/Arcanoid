@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
     private List<GameObject> _getComponentsInChildren;
         
-    void Start()
+    private  void Start()
     {
         Game.MinusHealth += HealthChanged;
         

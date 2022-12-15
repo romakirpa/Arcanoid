@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using Infrastructure.Services;
 using Microsoft.Win32.SafeHandles;
 using UnityEngine;
@@ -7,7 +8,6 @@ namespace Infrastructure
 {
     public class Game
     {
-        public static IInputService InputService; // todo remove static, use DI in the future.
         public static int Health; // todo remove static, use DI.
         public static event Action MinusHealth;
         
@@ -28,12 +28,10 @@ namespace Infrastructure
         {
             if (Application.isEditor)
             {
-                InputService = new DefaultInputService();
-            }
+                DIConteiner.RegisterType<IInputService>(new DefaultInputService());            }
             else
             {
-                InputService = new MobileInputService();
-            }
+                DIConteiner.RegisterType<IInputService>(new MobileInputService());            }
         }
     }
 }

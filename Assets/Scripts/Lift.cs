@@ -1,9 +1,11 @@
+using DefaultNamespace;
 using Infrastructure;
+using Infrastructure.Services;
 using UnityEngine;
 
 public class Lift : MonoBehaviour
 {
-    [SerializeField]
+    private IInputService _inputService;
     private float _speed = 15f;
     private Transform _transform;
     private float _maxLeftPosition;
@@ -12,6 +14,7 @@ public class Lift : MonoBehaviour
 
     void Start()
     {
+        _inputService = DIConteiner.GetInstance<IInputService>();
         _transform = GetComponent<Transform>();
         _halfSize = GetComponent<Renderer>().bounds.size.x / 2;
         _maxLeftPosition = GetMaxLeftPosition(); // todo refactor this
@@ -20,7 +23,7 @@ public class Lift : MonoBehaviour
 
     void Update()
     {
-        var horizontalDirection = Game.InputService.GetAxis().x;
+        var horizontalDirection = _inputService.GetAxis().x;
         _transform.Translate(Vector3.right * (horizontalDirection * _speed * Time.deltaTime));
         var pos = _transform.position;
         pos.x = Mathf.Clamp(pos.x, _maxLeftPosition, _maxRightPosition);
