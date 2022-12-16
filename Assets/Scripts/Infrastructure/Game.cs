@@ -1,7 +1,5 @@
 ﻿using System;
-using Infrastructure.Services;
-using Microsoft.Win32.SafeHandles;
-using UnityEngine;
+using Infrastructure.StateMachine;
 
 namespace Infrastructure
 {
@@ -13,7 +11,8 @@ namespace Infrastructure
 
         public Game()
         {
-            RegisterInputService();
+            var stateMachine = new StateMachine.StateMachine();
+            stateMachine.EnterToState<BootState>();
             Health = 3;
         }
 
@@ -21,16 +20,6 @@ namespace Infrastructure
         {
             Health -= 1;
             if (MinusHealth != null) MinusHealth();
-        }
-        
-        private void RegisterInputService()
-        {
-            if (Application.isEditor)
-            {
-                DIConteiner.RegisterType<IInputService>(new DefaultInputService());            }
-            else
-            {
-                DIConteiner.RegisterType<IInputService>(new MobileInputService());            }
         }
     }
 }
