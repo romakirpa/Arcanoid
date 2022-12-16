@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using Infrastructure;
 using Infrastructure.Services;
 using UnityEngine;

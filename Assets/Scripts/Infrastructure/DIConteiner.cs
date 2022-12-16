@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DefaultNamespace
+namespace Infrastructure
 {
-    public class DIConteiner
+    public static class DIConteiner
     {
-        private  static Dictionary<Type, object> _dictionary = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> _dictionary = new Dictionary<Type, object>();
 
         public static void RegisterType<TService>(TService obj) 
         {
