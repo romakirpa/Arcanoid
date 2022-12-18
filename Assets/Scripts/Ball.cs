@@ -1,5 +1,6 @@
 using Blocks;
 using Infrastructure;
+using Infrastructure.Services;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -9,6 +10,7 @@ public class Ball : MonoBehaviour
     private Vector3 _direction;
     private bool _isMoving;
     private float _currentDamage;
+    private IProgressService _progressService;
 
     private void Start()
     {
@@ -48,9 +50,10 @@ public class Ball : MonoBehaviour
 
     public void Failed()
     {
-        Game.DecrementHealth();
+        _progressService = DIConteiner.GetInstance<IProgressService>();
+        _progressService.DecrementHealth();
         
-        if (Game.Health <= 0)
+        if (_progressService.HealthCount <= 0)
         {
             //todo implement end game;
             Application.Quit();

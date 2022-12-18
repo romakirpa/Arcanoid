@@ -23,6 +23,7 @@ namespace Infrastructure.StateMachine
 
         private void RegisterService()
         {
+            DIConteiner.RegisterType<IProgressService>(new ProgressService());
             if (Application.isEditor)
             {
                 DIConteiner.RegisterType<IInputService>(new DefaultInputService());
