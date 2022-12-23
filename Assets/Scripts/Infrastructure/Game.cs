@@ -1,13 +1,14 @@
-﻿using Infrastructure.StateMachine;
+﻿using Interfaces;
 
 namespace Infrastructure
 {
     public class Game
     {
-        public Game()
+        public StateMachine.StateMachine StateMachine;
+        
+        public Game(ICoroutine coroutine)
         {
-            var stateMachine = new StateMachine.StateMachine();
-            stateMachine.EnterToState<BootState>();
+            StateMachine = new StateMachine.StateMachine(coroutine);
         }
     }
 }

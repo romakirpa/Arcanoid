@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using Interfaces;
 
 namespace Infrastructure.StateMachine
 {
     public class StateMachine
     {
-        private Dictionary<Type, IState> _states;
-        private IState _currentState;
+        private Dictionary<Type, IExitable> _states;
+        private IExitable _currentState;
 
-        public StateMachine()
+        public StateMachine(ICoroutine coroutine)
         {
-            _states = new Dictionary<Type, IState>()
+            _states = new Dictionary<Type, IExitable>()
             {
-                { typeof(BootState), new BootState(this) }
+                { typeof(BootState), new BootState(this, coroutine) },
+                { typeof(LoadLvlState), new LoadLvlState()}
             };
         }
 
-        public void EnterToState<TState>() where TState : IState
+        public void EnterToState<TState>() where TState : IExitable
         {
-            var state = _states[typeof(TState)];
+            var state = _states[typeof(TState)] as IState;
             if (state != _currentState && _currentState != null)
             {
                 _currentState.Exit();
@@ -26,6 +28,18 @@ namespace Infrastructure.StateMachine
 
             _currentState = state;
             state.Enter();
+        }
+        
+        public void EnterToState<TState>(string parameter) where TState : IExitable
+        {
+            var state = _states[typeof(TState)] as IParameterableState;
+            if (state != _currentState && _currentState != null)
+            {
+                _currentState.Exit();
+            }
+
+            _currentState = state;
+            state.Enter(parameter);
         }
 
         public void ExitFromState()

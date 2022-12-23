@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.Interfaces
 {
     public interface IProgressService
     {

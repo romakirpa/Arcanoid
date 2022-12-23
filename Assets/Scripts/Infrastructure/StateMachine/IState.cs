@@ -1,8 +1,7 @@
 ﻿namespace Infrastructure.StateMachine
 {
-    public interface IState
+    public interface IState: IExitable
     {
         void Enter();
-        void Exit();
     }
 }

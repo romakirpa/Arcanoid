@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Infrastructure;
 using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 using UnityEngine;
 
 public class Health : MonoBehaviour
