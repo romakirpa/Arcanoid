@@ -14,7 +14,7 @@ public class Lift : MonoBehaviour
 
     void Start()
     {
-        _inputService = DIConteiner.GetInstance<IInputService>();
+        _inputService = DiContainer.GetInstance<IInputService>();
         _transform = GetComponent<Transform>();
         _halfSize = GetComponent<Renderer>().bounds.size.x / 2;
         _maxLeftPosition = GetMaxLeftPosition(); // todo refactor this

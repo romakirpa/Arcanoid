@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infrastructure
 {
-    public static class DIConteiner
+    public static class DiContainer
     {
         private static Dictionary<Type, object> _dictionary = new Dictionary<Type, object>();
 

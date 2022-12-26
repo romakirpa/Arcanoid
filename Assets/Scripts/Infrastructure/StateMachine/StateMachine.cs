@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Infrastructure.StateMachine.Interfaces;
 using Interfaces;
 
 namespace Infrastructure.StateMachine
@@ -14,7 +15,8 @@ namespace Infrastructure.StateMachine
             _states = new Dictionary<Type, IExitable>()
             {
                 { typeof(BootState), new BootState(this, coroutine) },
-                { typeof(LoadLvlState), new LoadLvlState()}
+                { typeof(LoadLvlState), new LoadLvlState(this) },
+                { typeof(LoopState), new LoopState(this) }
             };
         }
 

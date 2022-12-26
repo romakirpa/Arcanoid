@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.StateMachine
+﻿namespace Infrastructure.StateMachine.Interfaces
 {
     public interface IParameterableState : IExitable
     {

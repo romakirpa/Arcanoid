@@ -1,6 +1,5 @@
 using Blocks;
 using Infrastructure;
-using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using UnityEngine;
 
@@ -51,7 +50,7 @@ public class Ball : MonoBehaviour
 
     public void Failed()
     {
-        _progressService = DIConteiner.GetInstance<IProgressService>();
+        _progressService = DiContainer.GetInstance<IProgressService>();
         _progressService.DecrementHealth();
         
         if (_progressService.HealthCount <= 0)

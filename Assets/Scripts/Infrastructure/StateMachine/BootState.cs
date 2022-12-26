@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
+using Infrastructure.StateMachine.Interfaces;
 using Interfaces;
 using UnityEngine;
 
@@ -29,15 +30,15 @@ namespace Infrastructure.StateMachine
 
         private void RegisterService()
         {
-            DIConteiner.RegisterType<ISceneLoaderService>(new SceneLoaderService(_coroutine));
-            DIConteiner.RegisterType<IProgressService>(new ProgressService());
+            DiContainer.RegisterType<ISceneLoaderService>(new SceneLoaderService(_coroutine));
+            DiContainer.RegisterType<IProgressService>(new ProgressService());
             if (Application.isEditor)
             {
-                DIConteiner.RegisterType<IInputService>(new DefaultInputService());
+                DiContainer.RegisterType<IInputService>(new DefaultInputService());
             }
             else
             {
-                DIConteiner.RegisterType<IInputService>(new MobileInputService());
+                DiContainer.RegisterType<IInputService>(new MobileInputService());
             }
         }
     }
