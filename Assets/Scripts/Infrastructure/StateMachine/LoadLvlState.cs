@@ -3,7 +3,7 @@ using Infrastructure.StateMachine.Interfaces;
 
 namespace Infrastructure.StateMachine
 {
-    public class LoadLvlState :IParameterableState
+    public class LoadLvlState : IParameterableState
     {
         private readonly StateMachine _stateMachine;
 
@@ -21,7 +21,6 @@ namespace Infrastructure.StateMachine
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

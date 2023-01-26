@@ -1,6 +1,7 @@
 using Blocks;
 using Infrastructure;
 using Infrastructure.Services.Interfaces;
+using System.Linq;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -17,7 +18,15 @@ public class Ball : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _speed = 20f;
         _currentDamage = 1;
-        RestartPosition();
+        _direction = GetRandomDirection();
+    }
+    private Vector3 GetRandomDirection()
+    {
+        var random = new System.Random();
+
+        var list = new int[] {-1, 1};
+        
+        return new Vector3(random.Next(list.Count()), 1, this.transform.position.z);
     }
 
     private void FixedUpdate()
@@ -26,8 +35,7 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-
-        _rigidBody.velocity = _direction;
+        _rigidBody.velocity = _direction  * _speed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,15 +67,5 @@ public class Ball : MonoBehaviour
             Application.Quit();
             return;
         }
-        RestartPosition();
-    }
-
-    private void RestartPosition()
-    {
-        _isMoving = false;
-        transform.position = new Vector3(0f, 1f, 0);
-        _direction = Vector3.up * _speed;
-        _rigidBody.velocity = Vector3.zero;
-        transform.rotation = new Quaternion();
     }
 }
