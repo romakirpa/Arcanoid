@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using Assets.Scripts.Infrastructure.Services.Interfaces;
+using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Infrastructure.StateMachine.Interfaces;
 using Interfaces;
@@ -32,6 +33,7 @@ namespace Infrastructure.StateMachine
         {
             DiContainer.RegisterType<ISceneLoaderService>(new SceneLoaderService(_coroutine));
             DiContainer.RegisterType<IProgressService>(new ProgressService());
+            DiContainer.RegisterType<IScreenService>(new ScreenService());
             if (Application.isEditor)
             {
                 DiContainer.RegisterType<IInputService>(new DefaultInputService());

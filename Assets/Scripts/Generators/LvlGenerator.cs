@@ -1,5 +1,8 @@
 using Assets.Scripts.Generators;
+using Assets.Scripts.Infrastructure.Services.Interfaces;
 using Helpers;
+using Infrastructure;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class LvlGenerator : MonoBehaviour
@@ -9,7 +12,7 @@ public class LvlGenerator : MonoBehaviour
 
     [SerializeField]
     private int _horizontalBlocksCount = 10;
-     
+
     [SerializeField]
     private int _verticalBlocksCount = 10;
 
@@ -22,26 +25,24 @@ public class LvlGenerator : MonoBehaviour
     private void Start()
     {
         var camera = GameObject.Find(Constants.Camera).GetComponent<Camera>();
-        InitializeGenerators(new ScreenServices(), camera);
+        InitializeGenerators(camera);
         GenerateLvl();
     }
-    
-    private void InitializeGenerators(ScreenServices screenService, Camera camera)
+
+    private void InitializeGenerators(Camera camera)
     {
-        _wallsGenerator = new WallsGenerator(screenService.GetTopScreenCenterPoint(camera, _deepZ),
-                                             screenService.GetDownScreenCenterPoint(camera, _deepZ),
-                                             screenService.GetLeftScreenCenterPoint(camera, _deepZ),
-                                             screenService.GetRightScreenCenterPoint(camera, _deepZ));
-        _blocksGenerator = new BlocksGenerator(_horizontalBlocksCount,
-                                               _verticalBlocksCount,
-                                               screenService.GetLeftScreenCenterPoint(camera, _deepZ),
-                                               screenService.GetRightScreenCenterPoint(camera, _deepZ));
+        var screenService = DiContainer.GetInstance<IScreenService>();
+
+        var topSide = screenService.GetTopScreenCenterPoint(camera, _deepZ);
+        var downSide = screenService.GetDownScreenCenterPoint(camera, _deepZ);
+        var leftSide = screenService.GetLeftScreenCenterPoint(camera, _deepZ);
+        var rightSide = screenService.GetRightScreenCenterPoint(camera, _deepZ);
+
+        _wallsGenerator = new WallsGenerator(topSide, downSide, leftSide, rightSide);
+        _blocksGenerator = new BlocksGenerator(_horizontalBlocksCount, _verticalBlocksCount, leftSide, rightSide);
         _ballGenerator = new BallGenerator();
-        _liftGenerator = new LiftGenerator(screenService.GetLeftScreenCenterPoint(camera, _deepZ),
-                                           screenService.GetRightScreenCenterPoint(camera, _deepZ),
-                                           screenService.GetDownScreenCenterPoint(camera, _deepZ));
-        _healthMonitorGenerator = new HealthMonitorGenerator(screenService.GetTopScreenCenterPoint(camera, _deepZ),
-                                                             screenService.GetLeftScreenCenterPoint(camera, _deepZ));
+        _liftGenerator = new LiftGenerator(leftSide, rightSide, downSide);
+        _healthMonitorGenerator = new HealthMonitorGenerator(topSide, leftSide);
     }
 
     private void GenerateLvl()

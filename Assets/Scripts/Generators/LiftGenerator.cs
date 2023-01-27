@@ -18,10 +18,12 @@ namespace Assets.Scripts.Generators
 
         public GameObject GenerateLift()
         {
-            var lift = Resources.Load($"Prefabs/{Constants.LiftName}") as GameObject;
-            var position = GetPosition(lift.GetComponent<Renderer>().bounds.size.y);
-            lift.transform.position = position;
-            return GameObject.Instantiate(lift);
+            var prefab = Resources.Load($"Prefabs/{Constants.LiftName}") as GameObject;
+            var position = GetPosition(prefab.GetComponent<Renderer>().bounds.size.y);
+            prefab.transform.position = position;
+            var lift = GameObject.Instantiate(prefab);
+            lift.GetComponent<Lift>().SetupMaxLiftPositions(_leftCenterPoint, _rightCenterPoint);
+            return lift;
         }
 
         private Vector3 GetPosition(float liftSize) 
