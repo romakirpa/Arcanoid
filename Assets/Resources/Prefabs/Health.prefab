@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222075679699206118}
   - component: {fileID: 2165021207463115787}
+  - component: {fileID: 6773853646429785624}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -48,6 +49,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.01, y: 1.32, z: 1}
   m_Center: {x: 0, y: -0.16, z: 0}
+--- !u!114 &6773853646429785624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719967368709520499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db25aecd9dd0bd14886aaaf2c8d446e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3644440870295208059
 PrefabInstance:
   m_ObjectHideFlags: 0

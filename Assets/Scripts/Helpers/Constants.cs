@@ -6,6 +6,7 @@
         public const string Camera = "Camera";
         // Tags
         public const string TagBall = "Ball";
+        public const string DeathLine = "DeathLine";
         
         //Blocks
         public const string BlockIron = "BlockIron";

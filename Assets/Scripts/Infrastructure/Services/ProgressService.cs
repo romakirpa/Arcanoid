@@ -1,5 +1,6 @@
 ﻿using System;
 using Infrastructure.Services.Interfaces;
+using UnityEngine;
 
 namespace Infrastructure.Services
 {
@@ -17,6 +18,11 @@ namespace Infrastructure.Services
         public void DecrementHealth()
         {
             HealthCount -= 1;
+            if(HealthCount <= 0)
+            {
+                Application.Quit();
+            }
+
             if (OnDied != null)
             {
                 OnDied();
@@ -25,7 +31,7 @@ namespace Infrastructure.Services
 
         public void IncrementHealth()
         {
-            throw new NotImplementedException();
+            HealthCount++;
         }
 
         public void SetLvl(string lvlName)

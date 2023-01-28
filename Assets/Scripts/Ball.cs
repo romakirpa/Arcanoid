@@ -1,6 +1,8 @@
 using Blocks;
+using Helpers;
 using Infrastructure;
 using Infrastructure.Services.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -12,21 +14,30 @@ public class Ball : MonoBehaviour
     private bool _isMoving;
     private float _currentDamage;
     private IProgressService _progressService;
+    private Vector3 _startPosition;
+
+    public void StartMove()
+    {
+        _isMoving = true;
+    }
 
     private void Start()
     {
+        _startPosition = transform.position;
         _rigidBody = GetComponent<Rigidbody>();
+        _progressService = DiContainer.GetInstance<IProgressService>();
         _speed = 20f;
         _currentDamage = 1;
-        _direction = GetRandomDirection();
+        PrepareBallToStart();
     }
+
     private Vector3 GetRandomDirection()
     {
         var random = new System.Random();
 
-        var list = new int[] {-1, 1};
-        
-        return new Vector3(random.Next(list.Count()), 1, this.transform.position.z);
+        var list = new int[] { -1, 1 };
+        var number = list.OrderBy(x => random.Next()).First();
+        return new Vector3(number, 1, this.transform.position.z);
     }
 
     private void FixedUpdate()
@@ -35,13 +46,17 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-        _rigidBody.velocity = _direction  * _speed;
+        _rigidBody.velocity = _direction * _speed;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         var block = collision.gameObject.GetComponent<IBlock>();
         block?.Hit(_currentDamage);
+        if (collision.gameObject.CompareTag(Constants.DeathLine))
+        {
+            Failed();
+        }
         ChangeDirection(collision.contacts[0].normal);
     }
 
@@ -51,21 +66,17 @@ public class Ball : MonoBehaviour
         _direction = ricochet;
     }
 
-    public void StartMove()
+    private void PrepareBallToStart()
     {
-        _isMoving = true;
+        _isMoving = false;
+        transform.position = _startPosition;
+        _rigidBody.velocity = Vector3.zero;
+        _direction = GetRandomDirection();
     }
 
-    public void Failed()
+    private void Failed()
     {
-        _progressService = DiContainer.GetInstance<IProgressService>();
         _progressService.DecrementHealth();
-        
-        if (_progressService.HealthCount <= 0)
-        {
-            //todo implement end game;
-            Application.Quit();
-            return;
-        }
+        PrepareBallToStart();
     }
 }

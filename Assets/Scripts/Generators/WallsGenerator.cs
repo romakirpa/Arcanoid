@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Generators
 {
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Generators
             var down = GenerateWall(new Vector3(sizeHorizontalWall, 1, 1), "down");
             down.transform.position = new Vector3(_downCenterPoint.x, _downCenterPoint.y - (down.GetComponent<Collider>().bounds.size.y / 2), _downCenterPoint.z);
             down.GetComponent<Renderer>().enabled = false;
+            down.tag = Constants.DeathLine;
         }
 
         private void CreateRightWall()
